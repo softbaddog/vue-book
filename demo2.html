@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="demo">
+    <button @click="change">change</button>
+    <pre>{{$data}}</pre>
+  </div>
+  <script>
+    new Vue({
+      el: '#demo',
+      data: {
+        thing: 1
+      },
+      mounted() {
+        this.$watch('thing', function(val, oldVal) {
+          alert('a thing changed')
+        })
+      },
+      // watch: {
+      //   // thing: function(val, oldVal) {
+      //   //   alert('a thing changed')
+      //   // }
+      //   thing: 'changed'
+      // },
+      methods: {
+        // changed: function(val, oldVal) {
+        //   alert('a thing changed')
+        // },
+        change: function() {
+          this.thing = 5
+        }
+      }
+    })
+  </script>
+</body>
+</html>

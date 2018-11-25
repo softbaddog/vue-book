@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="todo-app">
+        <h1>todo app</h1>
+        <input type="text" placeholder="new todo" v-model="todo"/><button @click="add">add</button>
+        <ul>
+            <li v-for="(item, index) in items">{{item}}
+                <button @click="rm(index)">X</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#todo-app',
+            data: {
+                items: ['item1', 'item2', 'item3'],
+                todo: ''
+            },
+            methods: {
+                rm: function(i) {
+                    this.items.splice(i, 1);
+                },
+                add: function() {
+                    if (this.todo) {
+                        this.items.push(this.todo);
+                        this.todo = '';
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="item in items">{{item}}</li>
+    </ul>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      mounted() {
+        this.funcs[0] = this.b
+        this.funcs[1] = this.c
+        this.funcs[2] = this.d
+        this.funcs[3] = this.e
+        this.funcs[4] = this.f
+        this.funcs[5] = this.g
+        this.funcs[6] = this.h
+        this.funcs[7] = this.i
+        this.funcs[8] = this.j
+        setTimeout(this.a, 1000)
+      },
+      data() {
+        return {
+          items: [1, 2, 3],
+          funcs: [],
+          funcIndex: 0
+        }
+      },
+      methods: {
+        a() {
+          this.funcs[this.funcIndex]()
+          this.funcIndex++
+          if (this.funcIndex < this.funcs.length)
+            setTimeout(this.a, 1000)
+        },
+        b() {
+          this.items.push(4)
+        },
+        c() {
+          this.items.pop()
+        },
+        d() {
+          this.items.shift()
+        },
+        e() {
+          this.items.unshift(1)
+        },
+        f() {
+          this.items.splice(1,1)
+        },
+        g() {
+          this.items.reverse()
+        },
+        h() {
+          this.items.sort()
+        },
+        i() {
+          Vue.set(this.items, 0, 111)
+        },
+        j() {
+          this.items.splice(1,1)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

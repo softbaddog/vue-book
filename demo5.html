@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var Dep = {
+      target: null
+    }
+    function defineVUEProperty(obj, key, val) {
+      var deps = [];
+      Object.defineProperty(obj, key, {
+        get: function() {
+          if (Dep.target && deps.indexOf(Dep.target) == -1) {
+            deps.push(Dep.target)
+          }
+          return val
+        },
+        set: function(newValue) {
+          val = newValue
+          for (var i = 0; i < deps.length; i++) {
+            deps[i]()
+          }
+        }
+      })
+    }
+    function defineVUEComputed(obj, key, computeFunc) {
+      var onDependencyUpdated = function() {
+        var value = computeFunc();
+        console.log('dependence value:' + value)
+      }
+      Object.defineProperty(obj, key, {
+        get: function() {
+          Dep.target = onDependencyUpdated;
+          var value = computeFunc();
+
+          Dep.target = null;
+          return value;
+        }
+      })
+    }
+
+    var bank = {}
+    defineVUEProperty(bank, 'money', 1)
+    defineVUEComputed(bank, 'RMB', function() {
+      return '$' + bank.money
+    })
+    console.log(bank.money, bank.RMB)
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">{{value}}</div>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          value: 42
+        }
+      },
+      mounted() {
+        setTimeout(this.a, 1000)
+      },
+      methods: {
+        a() {
+          this.value++
+          console.log(this.value)
+          setTimeout(this.a, 1000)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

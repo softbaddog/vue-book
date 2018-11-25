@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <component v-bind:is="current">
+        </component>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                current: 'archive',
+                i: 0,
+                b: ['home', 'posts', 'archive']
+            },
+            components: {
+                home: { template: '<h1>home</h1>' },
+                posts: { template: '<h1>posts</h1>'},
+                archive: { template: '<h1>archive</h1>'}
+            },
+            methods: {
+                a() {
+                    this.i = this.i % 3
+                    this.current = this.b[this.i]
+                    this.i++
+                    setTimeout(this.a, 2000)
+                }
+            },
+            mounted() {
+                setTimeout(this.a, 2000)
+            },
+        })
+    </script>
+</body>
+</html>

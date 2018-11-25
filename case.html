@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <wrapper>
+            <navi></navi>
+            <content1>
+                <topics></topics>
+                <userinfo></userinfo>
+            </content1>
+        </wrapper>
+    </div>
+    <script>
+        Vue.component('topics', {
+            template:`<div class="topics">topics...</div>`
+        })
+        Vue.component('userinfo', {
+            template:`<div class="userinfo">userinfo...</div>`
+        })
+        Vue.component('content1', {
+            template:`<div class="content1"><slot></slot></div>`
+        })
+        var navi = Vue.component('navi', {
+            template:`<div class="navigator">navigator...</div>`
+        })
+        var wrapper = Vue.component('wrapper', {
+            template:`<div class="wrapper"><slot></slot></div>`
+        })
+        new Vue({
+            el: "#app",
+            components: {
+                wrapper
+            }
+        })
+    </script>
+</body>
+</html>

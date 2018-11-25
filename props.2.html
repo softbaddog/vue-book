@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{total}}
+        <count ref="b1"></count>
+        <count ref="b2"></count>
+    </div>
+    <script>
+        Vue.component('count', {
+            template: '<button v-on:click="inc">{{count}}</button>',
+            data: function() {
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                inc: function() {
+                    this.count += 1
+                    this.$emit('inc')
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total: 0
+            },
+            mounted() {
+                this.$refs.b1.$on('inc', this.inc)
+                this.$refs.b2.$on('inc', this.inc)
+            },
+            methods: {
+                inc: function() {
+                    this.total += 1
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

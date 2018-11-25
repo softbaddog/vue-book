@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{total}}
+        <count v-on:inc='inc'></count>
+        <count v-on:inc='inc'></count>
+    </div>
+    <script>
+        Vue.component('count', {
+            template: '<button v-on:click="inc">{{count}}</button>',
+            data: function() {
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                inc: function() {
+                    this.count += 1
+                    this.$emit('inc')
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total: 0
+            },
+            methods: {
+                inc: function() {
+                    this.total += 1
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

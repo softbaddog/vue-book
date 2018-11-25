@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <comp></comp>
+  </div>
+  <script>
+    Vue.component('comp', {
+      template: '<div><button @click="hate=!hate">toggle</button><div v-hidd="hate">{{msg}}</div></div>',
+      directives: {
+        hidd: {
+          update: function (el, binding) {
+            console.log(binding.value)
+            el.style.display = binding.value ? 'none' : 'block'
+          }
+        }
+      },
+      data() {
+        return {
+          hate: false,
+          msg: 1
+        }
+      }
+    })
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          f: false
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

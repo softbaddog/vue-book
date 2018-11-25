@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(item, index) in items">{{item}}, {{index}}</li>
+      <li v-for="(v,k) in person">{{k}}:{{v}}</li>
+      <li v-for="v in 3">{{v}}</li>
+    </ul>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          items: [1, 2, 3],
+          person: {
+            name: 'frodo',
+            group: 'ring fellow'
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="demo">
+    <button @click="change">change</button>
+    <pre>{{$data}}</pre>
+  </div>
+  <script>
+    new Vue({
+      el: '#demo',
+      data: {
+        things: [{foo:1}, {foo:2}]
+      },
+      watch: {
+        things: {
+          handler: function(val, oldVal) {
+            alert('a thing changed')
+          },
+          deep: true
+        }
+      },
+      methods: {
+        change: function() {
+          this.things[0].foo = 5
+        }
+      }
+    })
+  </script>
+</body>
+</html>

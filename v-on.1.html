@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app" @click="t1">
+    <a href="http://t.cn" v-on:click.prevent.stop="t2">t.cn</a>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      methods: {
+        t1() {
+          console.log("t1")
+        },
+        t2() {
+          console.log("t2")
+        }
+      }
+    })
+  </script>
+</body>
+</html>
