@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <sticky>
+            <div slot="title">
+                <h3>Title</h3>
+            </div>
+            <div slot="body">
+                <p>Body foo bar baz ddd</p>
+            </div>
+        </sticky>
+    </div>
+    <script>
+        Vue.component('sticky', {
+            template:`
+                <div>
+                    <div class="wrapper">
+                        <div>
+                            <div class="title">
+                                <slot name="title"></slot>
+                            </div>
+                            <div class="body">
+                                <slot name="body"></slot>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+        })
+        new Vue({
+            el: "#app"
+        })
+    </script>
+    <style>
+        .wrapper {
+            display: flex;
+            width: 180px;
+            height: 150px;
+            background: yellow;
+            border-radius: 10px;
+        }
+        .title {
+            border-bottom: 1px solid red
+        }
+        .body {
+            border-bottom: 1px solid blue
+        }
+    </style>
+</body>
+</html>
