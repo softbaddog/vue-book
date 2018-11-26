@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <script type="x-template" id="t">
+    <div>
+      <span>{{count}}</span>
+      <button v-on:click="inc">+</button>
+    </div>
+  </script>
+  <div id="app">
+      <counter></counter>
+    </div>
+  <script>
+    var counter = {
+      template: '#t',
+      data() {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        inc() {
+          this.count++
+        }
+      }
+    }
+    var app = new Vue({
+      components: {
+        counter
+      }
+    })
+    app.$mount('#app')
+  </script>
+</body>
+</html>

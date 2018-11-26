@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <counter></counter>
+  </div>
+  <script>
+    var a = {
+      data() {
+        return {
+          count: 1
+        }
+      },
+      methods: {
+        inc() {
+          this.count++
+        },
+        render: function(h) {
+          var buttonAttrs = {
+            on: {
+              click: this.inc
+            },
+            domProps: {
+              innerHTML: '+'
+            }
+          }
+          var spanAttrs = {
+            on: {
+              click: this.inc
+            },
+            domProps: {
+              innerHTML: this.count.toString()
+            }
+          }
+          var span = h('span', spanAttrs, [])
+          var button = h('button', buttonAttrs, [])
+          return h('div', {}, [span, button])
+        }
+      }
+    }
+    new Vue({
+      el: '#app',
+      components: {
+        counter: a
+      }
+    })
+  </script>
+</body>
+</html>

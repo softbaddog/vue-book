@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="todo-app">
+    <h1>todo app</h1>
+    <new-todo></new-todo>
+    <todo-list></todo-list>
+  </div>
+  <script>
+    var eventHub = new Vue({
+      data() {
+        return {
+          todos: ['A', 'B', 'C']
+        }
+      },
+      created: function() {
+        this.$on('add', this.addTodo)
+        this.$on('delete', this.deleteTodo)
+      },
+      methods: {
+        addTodo: function(newTodo) {
+          this.todos.push(newTodo)
+        },
+        deleteTodo: function(i) {
+          this.todos.splice(i, 1)
+        }
+      }
+    })
+    var newTodo = {
+      template:'<div><input type="text" autofocus v-model="newtodo"/><button @click="add">add</button></div>',
+      data() {
+        return {
+          newtodo: ''
+        }
+      },
+      methods: {
+        add: function() {
+          eventHub.$emit('add', this.newtodo)
+          this.newtodo = ''
+        }
+      }
+    }
+    var todoList = {
+      template: '<ul>\
+        <li v-for="(item,index) in items">{{item}}\
+          <button @click="rm(index)">X</button></li>\
+        </ul>',
+        data() {
+          return {
+            items: eventHub.todos
+          }
+        },
+        methods: {
+          rm: function(i) {
+            eventHub.$emit('delete', i)
+          }
+        }
+    }
+    var app = new Vue({
+      el: '#todo-app',
+      components: {
+        newTodo: newTodo,
+        todoList: todoList
+      }
+    })
+  </script>
+</body>
+</html>

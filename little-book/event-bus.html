@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <foo></foo>
+    <bar></bar>
+  </div>
+  <script>
+    var bus = new Vue({})
+    Vue.component('foo', {
+      template:'<button v-on:click="inc">{{count}}</button>',
+      data: function() {
+        return {
+          count: 0
+        }
+      },
+      mounted() {
+        bus.$on('foo-inc', this.doinc)
+      },
+      methods: {
+        inc: function() {
+          bus.$emit('bar-inc', this)
+        },
+        doinc: function() {
+          this.count++
+        }
+      }
+    })
+    Vue.component('bar', {
+      template: '<button v-on:click="inc">{{count}}</button>',
+      data: function() {
+        return {
+          count: 0
+        }
+      },
+      mounted() {
+        bus.$on('bar-inc', this.doinc)
+      },
+      methods: {
+        inc: function() {
+          bus.$emit('foo-inc', this)
+        },
+        doinc: function() {
+          this.count++
+        }
+      }
+    })
+    new Vue({
+      el: '#app'
+    })
+  </script>
+</body>
+</html>
