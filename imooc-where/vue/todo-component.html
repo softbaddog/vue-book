@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="inputValue">
+    <button v-on:click="addItem">提交</button>
+    <ul>
+      <!-- <li v-for="todo in todoList">{{todo}}</li> -->
+      <todo-item v-bind:item="todo" 
+                 v-for="todo in todoList">
+      </todo-item>
+    </ul>
+  </div>
+  <script>
+    Vue.component("TodoItem", {
+      props: ['item'],
+      template: "<li>{{item}}</li>",
+    })
+    var app = new Vue({
+      el: '#app',
+      data: {
+        todoList: [],
+        inputValue: ''
+      },
+      methods: {
+        addItem: function () {
+          this.todoList.push(this.inputValue)
+          this.inputValue = ''
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
