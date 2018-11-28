@@ -6,73 +6,44 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <title>Vue生命周期</title>
-  <style>
-    .activated {
-      color: red
-    }
-  </style>
 </head>
 <body>
   <div id="app">
-    <div @click="handleDivClick"
-      :class="{activated: isActivated}">
-      {{ fullName }}
-    </div>
+    <counter ref="one" @change="handleChange" :count="1"></counter>
+    <counter ref="two" @change="handleChange" :count="2"></counter>
+    <div>{{total}}</div>
   </div>
   <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        msg: "Hello World",
-        firstName: "Wei",
-        lastName: "Fu",
-        isActivated: false
+    Vue.component('counter', {
+      template: "<div @click='handleClick'>{{number}}</div>",
+      props: ['count'],
+      data: function() {
+        return {
+          number: this.count
+        }
       },
       methods: {
-        handleDivClick() {
-          this.isActivated = !this.isActivated
+        handleClick() {
+          this.number++
+          this.$emit('change')
         }
-      },
-      computed: {
-        fullName: {
-          get() {
-            return this.firstName + ' ' + this.lastName
+      }
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {
+          total: 0
+        },
+        methods: {
+          handleClick() {
+            console.log(this.$refs.hello.innerHTML)
           },
-          set(value) {
-            var arr = value.split(" ")
-            this.firstName = arr[0]
-            this.lastName = arr[1]
-            console.log(value)
+          handleChange() {
+            //this.total = this.$refs.one.number + this.$refs.two.number
+            this.total++
           }
         }
-      },
-      beforeCreate() {
-        console.log("beforeCreate")
-      },
-      created() {
-        console.log("created")
-      },
-      beforeMount() {
-        console.log("beforeMount")
-        console.log(this.$el)
-      },
-      mounted() {
-        console.log("mounted")
-        console.log(this.$el)
-      },
-      beforeDestroy() {
-        console.log("beforeDestory")
-      },
-      destroyed() {
-        console.log("destoryed")
-      },
-      beforeUpdate() {
-        console.log("beforeUpdate")
-      },
-      updated() {
-        console.log("updated")
-      },
-    })
+      })
   </script>
 </body>
 </html>
