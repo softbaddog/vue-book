@@ -5,22 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <title>Document</title>
+  <title>Vue生命周期</title>
+  <style>
+    .activated {
+      color: red
+    }
+  </style>
 </head>
 <body>
   <div id="app">
-    {{ msg }}
+    <div @click="handleDivClick"
+      :class="{activated: isActivated}">
+      {{ fullName }}
+    </div>
   </div>
   <script>
     var app = new Vue({
       el: '#app',
       data: {
-        msg: "Hello World"
-      }
+        msg: "Hello World",
+        firstName: "Wei",
+        lastName: "Fu",
+        isActivated: false
+      },
+      methods: {
+        handleDivClick() {
+          this.isActivated = !this.isActivated
+        }
+      },
+      computed: {
+        fullName: {
+          get() {
+            return this.firstName + ' ' + this.lastName
+          },
+          set(value) {
+            var arr = value.split(" ")
+            this.firstName = arr[0]
+            this.lastName = arr[1]
+            console.log(value)
+          }
+        }
+      },
+      beforeCreate() {
+        console.log("beforeCreate")
+      },
+      created() {
+        console.log("created")
+      },
+      beforeMount() {
+        console.log("beforeMount")
+        console.log(this.$el)
+      },
+      mounted() {
+        console.log("mounted")
+        console.log(this.$el)
+      },
+      beforeDestroy() {
+        console.log("beforeDestory")
+      },
+      destroyed() {
+        console.log("destoryed")
+      },
+      beforeUpdate() {
+        console.log("beforeUpdate")
+      },
+      updated() {
+        console.log("updated")
+      },
     })
-    setTimeout(function() {
-      app.$data.msg = "Bye World"
-    }, 2000)
   </script>
 </body>
 </html>
